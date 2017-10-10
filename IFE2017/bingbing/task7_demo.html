@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task7</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        html{font-size:62.5%}
+        div{
+            padding:2rem 2rem 2rem 2rem;
+            border:1px solid black;
+            float:left;
+            margin-left: 1rem;
+        }
+        .container{
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload=function(){
+            var container = document.getElementById('container');
+             console.log(container.children[0].nextElementSibling);
+            bianli(container);
+           // console.log(container.nodeValue)
+           /* for(let i in container.children){
+                console.log(container.children[i]);
+                return
+            }*/
+           function getparent(child,root){
+               if(child.parentNode==root){
+                   return true;
+               }else if(child.parentNode.nextElementSibling){
+                   return child.parentNode.nextElementSibling;
+               }else{
+                   return getparent(child.parentNode,root);
+               }
+           }
+
+            function bianli(root){
+               if(!root.children[0]) {
+                   if(!root.nextElementSibling){
+                       if(!root.parentNode.nextElementSibling){
+                           console.log(root.parentNode.nextElementSibling);
+                           return getparent(root,container);
+                       }else{
+                           console.log(root.parentNode.nextElementSibling);
+                           root.parentNode.nextElementSibling.style.border='1rem solid red';
+
+                           return bianli(root.parentNode.nextElementSibling);
+                       }
+
+                   }else{
+                       console.log(root.nextElementSibling);
+                       root.nextElementSibling.style.border='1rem solid red';
+                       return bianli(root.nextElementSibling);
+                   }
+
+               }else{
+                   root.children[0].style.border='1rem solid red';
+                   return bianli(root.children[0]);
+               }
+
+            }
+
+
+
+
+        }
+    </script>
+</body>
+</html>

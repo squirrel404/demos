@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task8</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        html{font-size: 62.5%;}
+        div{
+            border:1px solid black;
+            padding: 2em 1rem ;
+            background-color: white;
+            float: left;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="container">0
+    <div>1
+        <div>2
+            <div>3</div>
+            <div>4</div>
+        </div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+    <div>7
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+    </div>
+    <div>12
+        <div>13
+            <div>14</div>
+            <div>15</div>
+            <div>16</div>
+        </div>
+        <div>17</div>
+    </div>
+</div>
+<input type="text" id="input" placeholder="请输入需要查询的内容">
+<button id="btn">查询</button>
+<script>
+
+    var data = [];
+    var inAnimation = false;
+    var container = document.getElementById('container');
+    var btn = document.getElementById('btn');
+    var input= document.getElementById('input');
+    window.onload=function(){
+        btn.onclick=function(){
+            preOrder(container);
+           var word = checkInput(input.value);
+           if(!word) return;
+           else queryKeyword(word);
+        }
+        console.info(container.childNodes[0]);
+    }
+
+    //前序遍历
+    function preOrder(root){
+        data.push(root);
+        for(let i =0;i<root.childElementCount;i++){
+            if (root.children[i] != null) {
+                preOrder(root.children[i]);
+            }
+        }
+    }
+    function queryKeyword(word) {
+        if (inAnimation) {
+            alert('in animation');
+            return;
+        }
+        inAnimation = true;
+        var i = 0;
+        data[i].style.backgroundColor = 'blue';
+        var showRet = setInterval(function() {
+            i++;
+            if (i >= data.length) {
+                clearInterval(showRet);
+                alert('未找到查询内容')
+                data[data.length - 1].style.backgroundColor = '#fff';
+                inAnimation = false;
+                return;
+            }
+            data[i - 1].style.backgroundColor = '#fff';
+            data[i].style.backgroundColor = 'blue';
+
+            //找到查询内容
+            if(data.childNodes[0].noedValue.search(word)!=-1){
+                alert("找到查询内容");
+                clearInterval(showRet);
+                return;
+            }
+        }, 500);
+    }
+
+    function checkInput(input){
+        if(input===' '||typeof(input)===null){
+            alert("请输入内容");
+            return 0;}
+        else{ return input;}
+    }
+
+</script>
+</body>
+</html>

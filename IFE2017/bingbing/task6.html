@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task6</title>
+    <style>
+        .container li{
+            background-color: red;
+            width:100px;
+            height: 100px;
+            list-style: none;
+            margin-left: 20px;
+            display: block;
+            float: left;
+            text-align: center;
+        }
+        .found{
+            color:blue;
+        }
+
+    </style>
+</head>
+<body>
+<lable><textarea  id="input" cols="30" rows="10" placeholder="用符号隔开"></textarea></lable><button id="btn2">插入</button>
+<input type="text"placeholder="输入你要查询的内容" id="input2"><button id="btn3">查询</button>
+
+<div class="container">
+    <ul class="main"></ul>
+</div>
+<script src="EventUtil.js"></script>
+<script>
+    window.onload=function(){
+        var ul = document.getElementsByClassName('main')[0];
+        var input = document.getElementById('input');
+        var input2 = document.getElementById('input2');
+
+        var btn2 = document.getElementById('btn2');
+        var btn3 = document.getElementById('btn3');
+
+        var data = [];
+
+
+        function Add() {
+            var value = input.value;
+            if(value){
+                var reg = /[,|\n|\s|，]+/g;
+                var str = value.split(reg);
+                for(let i in str){
+                    var newNode = document.createElement('li');
+                    newNode.innerHTML = "<b>"+str[i]+"</b>";
+                    ul.appendChild(newNode);
+                    data.push(str[i]);
+                }
+                input.value = null;
+                return;
+            }else{
+                alert("没有检测到输入")
+                return;
+            }
+        }
+
+        function search(){
+            var input = input2.value;
+            data.map(function(d){
+                ul.innerHTML = data.map(function(d){
+                    if(input != null && input.length > 0){
+                        d = d.replace(new RegExp(input, 'g'), '<span class="found">' + input + '</span>');
+                        input.value = null;
+                        return "<li>" + d + "</li>";
+                    }else{
+                        alert("没有检测到输入");
+                        return;
+                    }
+                }).join('');
+            })
+
+        }
+
+        EventUtil.addHandler(btn2,'click',Add);
+        EventUtil.addHandler(btn3,'click',search);
+
+
+    }
+
+
+</script>
+</body>
+</html>

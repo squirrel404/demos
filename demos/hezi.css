@@ -1,0 +1,14 @@
+.container{
+	height:400px;
+	width:500px;
+	margin:100px auto auto auto;
+	background-color: #999999;
+}
+.div1{
+	height:100px;
+	width:100px;
+	background-color: red;
+	position:relative;
+	top:100px;
+	left:200px;
+}

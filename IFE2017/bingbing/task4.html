@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task4</title>
+    <style>
+        .container li{
+            background-color: red;
+            width:100px;
+            height: 100px;
+            list-style: none;
+            margin-left: 20px;
+            display: block;
+            float: left;
+            text-align: center;
+        }
+        ul{
+
+        }
+    </style>
+</head>
+<body>
+    <lable><input type="text" id="input"></lable><button id="btn1">左侧入</button><button id="btn2">右侧入</button>
+    <button id="btn3">左侧出</button><button id="btn4">右侧出</button>
+<div class="container">
+    <ul class="main"></ul>
+</div>
+    <script src="EventUtil.js"></script>
+    <script>
+        window.onload=function(){
+            var ul = document.getElementsByClassName('main')[0];
+            var input = document.getElementById('input');
+            var btn1 = document.getElementById('btn1');
+            var btn2 = document.getElementById('btn2');
+            var btn3 = document.getElementById('btn3');
+            var btn4 = document.getElementById('btn4');
+
+            function check(value){
+                if(isNaN(parseInt(value))){
+                    alert("请输入合法数字");
+                    return false;
+                } else{
+                    return parseInt(value);
+                }
+            }
+            function leftAdd() {
+                var value = check(input.value);
+                if(value){
+                    var newNode = document.createElement('li');
+
+                    newNode.innerHTML = "<b>"+value+"</b>";
+                    var refchild = ul.children[0];
+                    //console.info(refchild);
+                    ul.insertBefore(newNode,refchild);
+                   input.value = null;
+                    EventUtil.addHandler(newNode, 'click', function () {
+                        ul.removeChild(newNode);
+                        console.log(ul);
+                    });
+                }else{
+                    return;
+                }
+            }
+
+            function rightAdd() {
+                var value = check(input.value);
+                if(value){
+                    var newNode = document.createElement('li');
+                    newNode.innerHTML = "<b>"+value+"</b>";
+                    ul.appendChild(newNode);
+                    input.value = null;
+                    EventUtil.addHandler(newNode, 'click', function () {
+                        ul.removeChild(newNode);
+                        console.log(ul);
+                    });
+                }else{
+                    return;
+                }
+            }
+            function leftRemove(){
+                var node = ul.children[0];
+                if(!node){
+                    console.log(typeof(node));
+                    alert("没有节点可删除");
+
+                }else{
+                    confirm("确认删除"+node.innerText);
+                    ul.removeChild(node);
+                }
+            }
+            function rightRemove() {
+                var node = ul.lastChild;
+                if(!node){
+                    alert("没有节点可删除");
+                }else{
+                    confirm("确认删除"+node.innerText);
+                    ul.removeChild(node);
+                }
+            }
+            EventUtil.addHandler(btn1,'click',leftAdd);
+            EventUtil.addHandler(btn2,'click',rightAdd);
+            EventUtil.addHandler(btn3,'click',leftRemove);
+            EventUtil.addHandler(btn4,'click',rightRemove);
+            console.log(ul);
+
+
+
+
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>task7</title>
+    <style>
+        html{font-size:62.5%}
+        div{
+            padding:2rem 2rem 2rem 2rem;
+            border:0.1rem solid black;
+            float:left;
+            margin-left: 1rem;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <!--二叉树-->
+    <div id="container">
+        <div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+</div>
+    <div>
+        <button id="preorder">前序遍历</button>
+        <button id="inorder">中序遍历</button>
+        <button id="postorder">后序遍历</button>
+    </div>
+    <script>
+        window.onload=function(){
+            var container = document.getElementById('container');
+            var btn_pre = document.getElementById('preorder');
+            var btn_post = document.getElementById('postorder');
+            var btn_in = document.getElementById('inorder');
+            var data = [];
+            var status = false;
+            var inAnimation = false;
+            //前序遍历
+            function preOrder(root){
+                data.push(root);
+                if(root.firstElementChild){
+                    preOrder(root.firstElementChild);
+                }
+                if(root.lastElementChild){
+                    preOrder(root.lastElementChild);
+                }
+
+            }
+            //中序遍历
+            function inOrder(root){
+                if(root.firstElementChild){
+                    inOrder(root.firstElementChild);
+                }
+                data.push(root);
+                if(root.lastElementChild){
+                    inOrder(root.lastElementChild);
+                }
+            }
+            //后序遍历
+            function postOrder(root){
+                if(root.firstElementChild){
+                    postOrder(root.firstElementChild);
+                }
+                if(root.lastElementChild){
+                    postOrder(root.lastElementChild);
+                }
+                data.push(root);
+            }
+            //动画
+            function render() {
+                if (inAnimation) {
+                    alert('in animation');
+                    return;
+                }
+                inAnimation = true;
+                var i = 0;
+                data[i].style.backgroundColor = 'blue';
+                var showRet = setInterval(function() {
+                    ++i;
+                    if (i >= data.length) {
+                        clearInterval(showRet);
+                        data[data.length - 1].style.backgroundColor = '#fff';
+                        inAnimation = false;
+                        return;
+                    }
+                    data[i - 1].style.backgroundColor = '#fff';
+                    data[i].style.backgroundColor = 'blue';
+                }, 500);
+            }
+
+
+            btn_pre.onclick=function(){
+                preOrder(container);
+                render();
+            }
+            btn_post.onclick=function(){
+                postOrder(container);
+                render();
+            }
+            btn_in.onclick=function(){
+                inOrder(container);
+                render();
+            }
+
+            //console.log(data);
+
+
+
+        }//window.onload
+    </script>
+</body>
+</html>

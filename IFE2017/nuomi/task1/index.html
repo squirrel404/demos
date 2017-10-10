@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task1</title>
+	<style>
+		*{
+			margin:0;
+			padding: :0;
+			border:0;
+		}
+		#container{
+			position: relative;
+			width:500px;
+			height:300px;
+			margin:50px auto;
+		}
+		#text{
+			position: absolute;
+			height:200px;
+			width:400px;
+			left:50px;
+			top:50px;
+			font-size: 26px;
+			visibility: hidden;
+			z-index: 1;
+		}
+		#text a{
+			text-decoration: none;
+			color:green;
+			margin-left: 100px;
+			margin-top: 30px;
+		}
+		.border{
+			border:5px solid transparent;
+			width:0;
+			height:0;
+			position: absolute;
+			z-index: 2;
+		}
+		
+
+		/* 白色边框展开效果 */
+		@keyframes top_border{
+			0%{}
+			100%{left:40px;width:410px;border-color: white;}
+		}
+		@keyframes right_border{
+			0%{}
+			100%{top:49px;height:200px;border-color: white;}
+		}
+		@keyframes bottom_border{
+			0%{}
+			100%{left:40px;width:410px;border-color: white;}
+		}
+		@keyframes left_border{
+			0%{}
+			100%{top:49px;height:200px;border-color: white;}
+		}
+		#top-border{
+			left:250px;
+			top:40px;
+		}
+		#right-border{
+			left:450px;
+			top:150px;	
+		}
+		#bottom-border{
+			left:250px;
+			top:250px;	
+		}
+		#left-border{
+			left:40px;
+			top:150px;	
+		} 
+		#container:hover>#top-border{
+			animation: top_border 3s;	
+			animation-fill-mode: forwards;
+		}
+		#container:hover>#right-border{
+			animation: right_border 3s;	
+			animation-fill-mode: forwards;
+		}		
+		#container:hover>#bottom-border{
+			animation: bottom_border 3s;	
+			animation-fill-mode: forwards;
+		}
+		#container:hover>#left-border{
+			animation: left_border 3s;	
+			animation-fill-mode: forwards;
+		} 
+
+		/* 流光文字效果 */
+		@keyframes color-text {
+    		0%  { background-position: 0 0;}
+    		100% { background-position: -100% 0;}
+		}
+		#text p{
+			margin-top:40px;
+			margin-left: 30px;
+			background-image: -webkit-linear-gradient(left, blue, red 25%, blue 50%, red 75%, blue 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent; 
+			background-size: 200% 100%;
+			animation: color-text 3s infinite linear;
+		}
+		@keyframes change-hidden{
+			0%{}
+			100%{visibility:visible;}
+		}
+		#container:hover>#text{
+			animation: change-hidden 3s;
+			animation-fill-mode: forwards;
+		}
+
+
+		/* 图片模糊效果 */
+		#bg-img{
+		    transition: filter,3s,ease-in;
+		}
+		#container:hover > #bg-img{
+		    filter: blur(3px);
+		}
+
+		
+
+	
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="top-border" class="border"></div>
+		<div id="right-border" class="border"></div>
+		<div id="bottom-border" class="border"></div>
+		<div id="left-border" class="border"></div>
+		<div id="text"><p>欢迎参加百度前端技术学院</p><a href="#">点击报名</a></div>
+		<img src="bg.jpg" alt="bg" id="bg-img" width="500px" height="300px" >
+	</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>radio</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+			border:0;
+		}
+		 input{display:none;} 
+
+		 /* 伪元素实现 */
+		#checkbox-label,#radio-label1,#radio-label2{
+			width:16px;
+			height:16px;
+			border:2px solid gray;
+			display: flex;
+			margin:30px auto auto 30px;
+		}
+		#checkbox1:checked+label,#radio1:checked+label,#radio2:checked+label{
+			border:2px solid red;
+		}
+		#checkbox1:checked+label::before{
+			content: "\2714";
+			color:red;
+			margin:auto;
+		}
+
+		#radio-label1,#radio-label2{
+			border-radius: 50%;
+		}
+		#radio1:checked+label::before,#radio2:checked+label::before{
+			content:"";
+			height:8px;
+			width:8px;
+			display:flex;
+			background-color:red;
+			border-radius: 50%;
+			margin: auto;
+		}
+	/* 雪碧图实现 */
+	#checkbox2-label,#radios2-label1,#radios2-label2{
+		display: block;
+		width:16px;
+		height:16px;
+		background:  url("label.png") no-repeat;
+		margin-left:30px;
+		margin-top:20px;
+	}
+	
+	#checkbox2-label{
+		background-position: -25px -32px;
+	}
+	#checkbox2:checked+label{
+		background-position: -60px -32px;
+	}
+	#radios2-label1,#radios2-label2{
+		background-position: -24px -11px;
+	}
+	#radio3:checked+label{
+		background-position: -59px -11px;
+	}
+	#radio4:checked+label{
+		background-position: -59px -10px;
+	}
+	</style>
+</head>
+<body>
+	<div>
+		<h3>伪元素实现</h3>
+		<div>
+			<input type="checkbox" name="" id="checkbox1" >
+			<label for="checkbox1" id="checkbox-label" ></label>
+		</div>
+		<div>
+			<input type="radio" name="radios" id="radio1">
+			<label for="radio1" id="radio-label1"></label>
+			<input type="radio" name="radios" id="radio2">
+			<label for="radio2" id="radio-label2"></label>
+		</div>
+	</div>
+	<div>
+		<h3>雪碧图实现</h3>
+		<div>
+			<input type="checkbox" name="" id="checkbox2" >
+			<label for="checkbox2" id="checkbox2-label" ></label>
+		</div>
+		<div>
+			<input type="radio" name="radios2" id="radio3">
+			<label for="radio3" id="radios2-label1"></label>
+			<input type="radio" name="radios2" id="radio4">
+			<label for="radio4" id="radios2-label2"></label>
+		</div>
+	</div>
+</body>
+</html>

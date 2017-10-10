@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>task2</title>
+    <link rel="stylesheet" href="./css/page2.css">
+</head>
+<body>
+<div class="container">
+    <div class="top">
+        <div class="icon">
+            <a href="#"><img src="images/矩形 7 拷贝 3.png" /></a>
+        </div>
+    </div>
+
+    <div class="message">玩家配比</div>
+    <div class="display">
+        <div class="result">
+            <div class="result-1"><span class="head"></span><p>杀手&nbsp<span id ="sha">2</span>&nbsp人</p></div>
+            <div class="result-2"><span class="head2"></span> <p>平民&nbsp<span id="ping">6</span>&nbsp人</p></div>
+        </div>
+    </div>
+    <div class="blank">
+
+    </div>
+    <div class="player_c">
+        <p><b>请输入玩家数量</b><input type = 'text' id="input" value="8" onfocus='if(this.value=="8"){this.value="";};'onblur='if(this.value==""){this.value="8";};'>&nbsp&nbsp<span class="player_c-span">玩家数量为4-18</span></p>
+    </div>
+    <button id="button">去发牌</button>
+</div>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<script src="./js/page2_jq.js"></script>
+</body>
+</html>

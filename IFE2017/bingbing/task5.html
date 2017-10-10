@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task5</title>
+    <style>
+        .container li{
+            position: relative;
+            bottom: 0;
+            background-color: red;
+            width:30px;
+           // height: 100px;
+            list-style: none;
+            margin-left:10px;
+            display: block;
+            float: left;
+            text-align: center;
+        }
+        ul{
+            height:120px;
+        }
+    </style>
+</head>
+<body>
+<lable><input type="text" id="input"></lable>
+<button id="btn1">左侧入</button><button id="btn2">右侧入</button>
+<button id="btn3">左侧出</button><button id="btn4">右侧出</button>
+<button id="btn5">排序</button>
+<div class="container">
+    <ul class="main"></ul>
+</div>
+<script src="EventUtil.js"></script>
+<script>
+    window.onload=function(){
+        var ul = document.getElementsByClassName('main')[0];
+        var input = document.getElementById('input');
+        var btn1 = document.getElementById('btn1');
+        var btn2 = document.getElementById('btn2');
+        var btn3 = document.getElementById('btn3');
+        var btn4 = document.getElementById('btn4');
+        var btn5 = document.getElementById('btn5');
+
+
+        function check(value){
+            var value = parseInt(value);
+            if(isNaN(value)){
+                alert("请输入合法数字");
+                return false;
+            } else{
+                if(value>=10&&value<=100){
+                    return value;
+                }else{
+                    alert('数字应该在10-100之间');
+                    return false;
+                }
+
+            }
+        }
+        function leftAdd() {
+            var value = check(input.value);
+            if(value){
+                var newNode = document.createElement('li');
+
+                newNode.innerHTML = "<b>"+value+"</b>";
+                var refchild = ul.children[0];
+                //console.info(refchild);
+                ul.insertBefore(newNode,refchild);
+                input.value = null;
+                newNode.style.height=value+'px';
+                newNode.style.marginTop = (120-value)+'px';
+                EventUtil.addHandler(newNode, 'click', function () {
+                    ul.removeChild(newNode);
+                });
+            }else{
+                return;
+            }
+        }
+
+        function rightAdd() {
+            var value = check(input.value);
+            if(value){
+                var newNode = document.createElement('li');
+                newNode.innerHTML = "<b>"+value+"</b>";
+                ul.appendChild(newNode);
+                input.value = null;
+                newNode.style.height=value+'px';
+                newNode.style.marginTop = (120-value)+'px';
+                EventUtil.addHandler(newNode, 'click', function () {
+                    ul.removeChild(newNode);
+
+                });
+            }else{
+                return;
+            }
+        }
+        function leftRemove(){
+            var node = ul.children[0];
+            if(!node){
+                alert("没有节点可删除");
+
+            }else{
+                confirm("确认删除"+node.innerText);
+                ul.removeChild(node);
+            }
+        }
+        function rightRemove() {
+            var node = ul.lastChild;
+            if(!node){
+                alert("没有节点可删除");
+            }else{
+                confirm("确认删除"+node.innerText);
+                ul.removeChild(node);
+            }
+        }
+        function getData() {
+            var data=[];
+            var li = ul.getElementsByTagName('li');
+             if(!li[0]){
+                 alert("没有节点可排序");
+                 return;
+             }else{
+                    for(let i=0;i<li.length;i++){
+                        let str = li[i].style.height;
+                        str = str.substring(0,2);
+                        data.push(parseInt(str));
+                    }
+                    console.log(data);
+                     return data;
+             }
+        }
+        function sort() {
+            var data = getData();
+            for(let i in data){
+                for(let j=0;j<data.length;j++){
+                    if(data[j]>data[j+1]){
+                        let tem = data[j+1];
+                        data[j+1] = data[j];
+                        ul.children[j+1].style.height=data[j+1]+'px';
+                        ul.children[j+1].style.marginTop = (120-data[j+1])+'px';
+                        data[j] = tem;
+                        ul.children[j].style.height=data[j]+'px';
+                        ul.children[j].style.marginTop = (120-data[j])+'px';
+                    }
+                }
+            }
+            console.log(data);
+        }
+        EventUtil.addHandler(btn1,'click',leftAdd);
+        EventUtil.addHandler(btn2,'click',rightAdd);
+        EventUtil.addHandler(btn3,'click',leftRemove);
+        EventUtil.addHandler(btn4,'click',rightRemove);
+        EventUtil.addHandler(btn5,'click',sort);
+
+
+
+    };
+
+
+</script>
+</body>
+</html>

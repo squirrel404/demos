@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<button id="button">点击我</button>
+		<script>
+			'use strict';
+			var button = document.getElementById('button');
+			function disp(){
+				alert("hello");
+			};
+			button.onclick=disp;
+				
+
+			function getAge() {
+			    var y = new Date().getFullYear();
+			    return y - this.birth;
+			}
+			var people={
+				name:"小明",
+				birth:1996,
+				age:getAge,
+				sex:"man"
+			};
+			console.log(people.age());
+			console.log(getAge());//使用this的一个巨坑
+/*	
+			单独调用函数getAge()怎么返回了NaN？请注意，我们已经进入到了JavaScript的一个大坑里。
+
+JavaScript的函数内部如果调用了this，那么这个this到底指向谁？
+
+答案是，视情况而定！
+
+如果以对象的方法形式调用，比如xiaoming.age()，该函数的this指向被调用的对象，也就是xiaoming，这是符合我们预期的。
+
+如果单独调用函数，比如getAge()，此时，该函数的this指向全局对象，也就是window。
+*/
+
+
+			//非strict模式下，它重新指向全局对象window！）
+			//strict模式下，报错，显示undefined
+
+		</script>
+	</body>
+</html>
